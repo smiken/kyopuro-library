@@ -1,19 +1,4 @@
-#include<iostream>
-#include<cstdio>
-#include<vector>
-#include<queue>
-#include<map>
-#include<string>
-#include<algorithm>
-#include<functional>
-#define ll long long
-#define inf  999999999
-#define pa pair<int,int>
-
-using namespace std;
-
-
-struct seg_rangeupd_getsum{
+struct seg_rangeupd_getmin{
 	//       1
 	//   2        3
 	// 4   5   6    7
@@ -33,29 +18,29 @@ struct seg_rangeupd_getsum{
 	vector<int> vec;
 	vector<int> lazy;
 	void shoki1(){
-		vec.resize(2*cor+3, 0);
-		lazy.resize(2*cor+3, inff);
+		vec.resize(2*cor+3, inff+1);
+		lazy.resize(2*cor+3, -1);
 	}
 	void shoki2(){
-		//lazy[1]=(1ll<<31)-1;
+		lazy[1]=(1ll<<31)-1;
 		//初期値
 	}
 		
 	void chien(int k,int l,int r){
-		if(lazy[k]==inff) return;
+		if(lazy[k]==-1) return;
 		if(l+1<r){
-			vec[k]=lazy[k]*(r-l);
+			vec[k]=lazy[k];
 			lazy[2*k]=lazy[k];
 			lazy[2*k+1]=lazy[k];
-			lazy[k]=inff;
+			lazy[k]=-1;
 		}
 		else {
 			vec[k]=lazy[k];
-			lazy[k]=inff;
+			lazy[k]=-1;
 		}
 	}
 	
-	int rangeadd(int a,int b,int w, int k=1,int l=0,int r=-3){
+	int rangeupd(int a,int b,int w, int k=1,int l=0,int r=-3){
 		//[a,b)を wに変更
 		if(r<0) r=cor;
 		
@@ -73,7 +58,7 @@ struct seg_rangeupd_getsum{
 //	cout<<k<<" "<<l<<" "<<r<<endl;
 		int w1=rangeupd(a,b,w,k*2,l,(l+r)/2);
 		int w2=rangeupd(a,b,w,k*2+1,(l+r)/2,r);
-		vec[k]=w1+w2;
+		vec[k]=min(w1,w2);
 		return vec[k];
 	}
 	
@@ -81,12 +66,12 @@ struct seg_rangeupd_getsum{
 	// k-th node
 	// k no kukanha [l,r)
 	
-	int getadd(int a,int b,int k=1,int l=0,int r=-1){
+	int getmin(int a,int b,int k=1,int l=0,int r=-1){
 		//[a,b)のminを取得
 		if(r<0) r=cor;
 		chien(k,l,r);
 		if(r<=a || b<=l){// 区間外
-			return 0;
+			return inff;
 		}
 		
 		if(a<=l && r<=b){// 完全含む
@@ -95,7 +80,7 @@ struct seg_rangeupd_getsum{
 		}
 		int w1=getmin(a,b,k*2,l,(l+r)/2);
 		int w2=getmin(a,b,k*2+1,(l+r)/2,r);
-		return (w1+w2);
+		return min(w1,w2);
 	}
 	void pre(){
 		for(int i=1;i<2*cor;i++){
@@ -105,36 +90,3 @@ struct seg_rangeupd_getsum{
 	}
 	
 };
-
-int main(){
-segsum SE;
-	
-	SE.shoki1();
-//	for(int i=0;i<SE.cor;i++){
-//		SE.vec[i+SE.cor]=i;
-//	}
-	SE.shoki2();
-	
-	
-	int n,q;
-	cin>>n>>q;
-	
-	for(int i=0;i<q;i++){
-	int d,a,b,c;
-		cin>>a;
-		
-		if(a==0){
-			cin>>b>>c>>d;
-			
-			SE.rangeadd(b,c+1,d);
-		}
-		else{
-			cin>>d;
-			
-			cout<<SE.getnum(d)<<endl;
-		}
-	}
-	return 0;
-}
-
-

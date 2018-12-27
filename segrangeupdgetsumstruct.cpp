@@ -1,18 +1,3 @@
-#include<iostream>
-#include<cstdio>
-#include<vector>
-#include<queue>
-#include<map>
-#include<string>
-#include<algorithm>
-#include<functional>
-#define ll long long
-#define inf  999999999
-#define pa pair<int,int>
-
-using namespace std;
-
-
 struct seg_rangeupd_getsum{
 	//       1
 	//   2        3
@@ -55,7 +40,7 @@ struct seg_rangeupd_getsum{
 		}
 	}
 	
-	int rangeadd(int a,int b,int w, int k=1,int l=0,int r=-3){
+	int rangeupd(int a,int b,int w, int k=1,int l=0,int r=-3){
 		//[a,b)‚ğ w‚É•ÏX
 		if(r<0) r=cor;
 		
@@ -81,7 +66,7 @@ struct seg_rangeupd_getsum{
 	// k-th node
 	// k no kukanha [l,r)
 	
-	int getadd(int a,int b,int k=1,int l=0,int r=-1){
+	int getsum(int a,int b,int k=1,int l=0,int r=-1){
 		//[a,b)‚Ìmin‚ğæ“¾
 		if(r<0) r=cor;
 		chien(k,l,r);
@@ -93,8 +78,8 @@ struct seg_rangeupd_getsum{
 			
 			return vec[k];
 		}
-		int w1=getmin(a,b,k*2,l,(l+r)/2);
-		int w2=getmin(a,b,k*2+1,(l+r)/2,r);
+		int w1=getsum(a,b,k*2,l,(l+r)/2);
+		int w2=getsum(a,b,k*2+1,(l+r)/2,r);
 		return (w1+w2);
 	}
 	void pre(){
@@ -105,36 +90,3 @@ struct seg_rangeupd_getsum{
 	}
 	
 };
-
-int main(){
-segsum SE;
-	
-	SE.shoki1();
-//	for(int i=0;i<SE.cor;i++){
-//		SE.vec[i+SE.cor]=i;
-//	}
-	SE.shoki2();
-	
-	
-	int n,q;
-	cin>>n>>q;
-	
-	for(int i=0;i<q;i++){
-	int d,a,b,c;
-		cin>>a;
-		
-		if(a==0){
-			cin>>b>>c>>d;
-			
-			SE.rangeadd(b,c+1,d);
-		}
-		else{
-			cin>>d;
-			
-			cout<<SE.getnum(d)<<endl;
-		}
-	}
-	return 0;
-}
-
-

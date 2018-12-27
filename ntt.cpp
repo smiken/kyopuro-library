@@ -1,4 +1,4 @@
-int D[1000000];
+int D[3000000];
 const int MOD=998244353;
 void fourie(int N,int d,vector<int> &vec ){// 1<<d == N
 	// U‚Í‡•ûŒü‚Å‚Íexp(2pi*I/N)‹t‚¾‚Æexp(-2pi*I/N)
