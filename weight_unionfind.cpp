@@ -66,27 +66,3 @@ vector<int> par,ranks,kosuu,dif;
 	}
 };
 
-void solve(){
-	int n,m;
-	cin>>n>>m;
-	if(n==0 && m==0) exit(0);
-	weight_unionfind UF;
-	UF.shoki(n+1);
-	for(int i=0;i<m;i++){
-		string s;
-		cin>>s;
-		if(s=="!"){
-			int a,b,w;
-			cin>>a>>b>>w;
-			UF.unite(a,b,w);
-		}
-		else{
-			int a,b;
-			cin>>a>>b;
-			if(!UF.same(a,b)){
-				cout<<"UNKNOWN"<<endl;
-			}
-			else cout<<UF.diff(a,b)<<endl;
-		}
-	}
-}
