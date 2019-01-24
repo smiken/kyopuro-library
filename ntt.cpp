@@ -70,7 +70,7 @@ int N=1;
 	int ninv=beki(N,MOD-2,MOD);
 	for(int i=0;i<N;i++)input1[i]=input1[i]*ninv%MOD;
 	
-	for(int i=0;i<N;i++){
+	for(int i=0;i<size1+size2-1;i++){
 		ANS.pb(input1[i]);
 	}
 	return ANS;
