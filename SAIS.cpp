@@ -2,22 +2,51 @@
 
 // SPOJ sarray
 // JAG 茂木地区2017 Separate String
-// コドフェス2016トーナメント1B 数字列をカンマで分ける問題 / Problem where Commas Separate Digits
+// コドフェス2016トーナメント1B 数字列をカンマで分ける問題
 // ARC050 D
+// square869120Contest #2 部分文字列
 
 struct SAIS{
 	private:
 	public:
+/*
+SA  LCP
+10    0   $
+ 9    1   a$
+ 5    1   aabba$
+ 0    2   ababbaabba$
+ 6    4   abba$
+ 2    0   abbaabba$
+ 8    2   ba$
+ 4    2   baabba$
+ 1    1   babbaabba$
+ 7    3   bba$
+ 3    0   bbaabba$
+	
+	SAとrankを作るときは
+	make_suffix_array_string(string s);
+	(rankはSAの逆写像)
+	
+	
+	LCPもいるときは
+	make_suffix_array_string
+	のあとで
+	make_lcp
+	
+	
+*/
 	
 	vector<int> S;
 	vector<int> SL;
 	// L-type = 0
 	// S-type = 1
-	// LMS-type = -(length of LMS-substring)
+	// LMS-type =2
 	vector<pa> haba;
 	vector<int> SA;
+	vector<int> rank;
+	vector<int> LCP;
 	int mojisu;
-	
+	int len;
 	
 	void make_suffix_array_string(string str){
 		set<char> setc;
@@ -44,7 +73,7 @@ struct SAIS{
 	
 	void make_suffix_array_naibu(){
 		int cnt=mojisu;
-		int len=S.size();
+		len=S.size();
 		
 		vector<int> kosuu(cnt,0);
 		for(auto c:S)kosuu[c]++;
@@ -150,12 +179,6 @@ struct SAIS{
 			for(int i=0;i<cnt;i++)pos[i]=0;
 			for(int i=0;i<len;i++)SA[i]=-1;
 		
-		///////////////
-		// 
-		// LMS-substrがダブってるかどうかで場合分け
-		// 
-		// 
-		///////////////		
 		if(LMS_num==lms_sub_order.back().second){
 			for(int i=LMS_num-1;i>=0;i--){
 				int c=lms_sub_order[i].first;
@@ -178,13 +201,10 @@ struct SAIS{
 				pos[S[c]]++;
 			}
 		}
-		///////////////
-		// 
-		// 最後のinduced sort
-		// 
-		// 
-		///////////////		
+
 			induced_sort(SA,len,cnt);
+		rank.resize(len);
+		for(int i=0;i<len;i++)rank[SA[i]]=i;
 			return;
 	}
 	
@@ -210,6 +230,22 @@ struct SAIS{
 			}
 		}
 		for(auto v:ve)if(v==-1)assert(0);
+	}
+	
+	void make_lcp(){
+		LCP.resize(len);
+		int h=0;
+		LCP[0]=0;
+		for(int i=0;i<len-1;i++){
+			int j=SA[rank[i]-1];
+			if(h>0)h--;
+			for(;j+h<len-1&& i+h<len-1;h++){
+				if(S[j+h]!=S[i+h])break;
+			}
+			LCP[rank[i]-1]=h;
+		}
+	//	for(int i=0;i<len;i++)cout<<LCP[i]<<endl;
+		return;
 	}
 };
 SAIS SA;
