@@ -1,3 +1,24 @@
+	//segsum2Dの使い方
+	// shoki1(x方向最大値,y方向最大値)
+	// precomp(x,y) 値の入るクエリの来る場所を全部一度教える(範囲和クエリの座標はいらない)
+	// shoki2();
+	// この3つを必ずやる
+	
+	// クエリは
+	//rangesum(x1,x2,y1,y2)
+	//point_add(x,y,val)
+	//point_change(x,y,val) (これは定数倍遅いので注意)
+
+
+
+	// verify
+	
+	// CF 1093E
+	// CF 848C
+	// JAG2018合宿Day3D
+	// ABC016D
+	
+	
 struct BIT{
 
 	
@@ -38,16 +59,7 @@ struct BIT{
 };
 
 struct segsum2D{
-	//使い方
-	// shoki1(x方向最大値,y方向最大値)
-	// precomp(x,y) 値の入るクエリの来る場所を全部一度教える(範囲和クエリの座標はいらない)
-	// shoki2();
-	// この3つを必ずやる
-	
-	// クエリは
-	//rangesum(x1,x2,y1,y2)
-	//point_add(x,y,val)
-	//point_change(x,y,val) (これは定数倍遅いので注意)
+
 	private:
 	public:
 	
