@@ -5,6 +5,9 @@
 // コドフェス2016トーナメント1B 数字列をカンマで分ける問題
 // ARC050 D
 // square869120Contest #2 部分文字列
+// yukicoder No.430
+// AOJ 立命合宿2017 password
+// uva I Love Strings!!
 
 struct SAIS{
 	private:
@@ -254,12 +257,19 @@ SA  LCP
 		int ue=len,si=0,me;
 		while(ue-si>1){
 			me=(ue+si)/2;
-			if(STR.substr(SA[me])<p)si=me;
+			if(STR.compare(SA[me],m,p)<0)si=me;
 			else ue=me;
 		}
 		return ue;
 	}
 	
+	bool exist(string p){
+		int l=p.length();
+		int id=lower_bound(p);
+		
+	
+		return 0==STR.compare(SA[id],l,p);
+	}
 	pa range(string p){// pを含む半壊区間 [l,r)  l==r なら存在なし
 				return {lower_bound(p),lower_bound(p+'{')};
 	}
