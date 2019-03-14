@@ -21,7 +21,7 @@ SA  LCP
  4    2   baabba$
  1    1   babbaabba$
  7    3   bba$
- 3    0   bbaabba$
+ 3    0** bbaabba$
 	
 	SA‚Ærank‚ğì‚é‚Æ‚«‚Í
 	make_suffix_array_string(string s);
@@ -35,7 +35,7 @@ SA  LCP
 	
 	
 */
-	
+	string STR;
 	vector<int> S;
 	vector<int> SL;
 	// L-type = 0
@@ -49,6 +49,7 @@ SA  LCP
 	int len;
 	
 	void make_suffix_array_string(string str){
+		STR=str;
 		set<char> setc;
 		map<char,int> mapc;
 		for(auto c:str)setc.insert(c);
@@ -247,5 +248,19 @@ SA  LCP
 	//	for(int i=0;i<len;i++)cout<<LCP[i]<<endl;
 		return;
 	}
+	
+	int lower_bound(string p){// •¶š—ñ‚Ìê‡‚Ì‚İ@p‚Í”ñ‹ó
+		int m=p.length();
+		int ue=len,si=0,me;
+		while(ue-si>1){
+			me=(ue+si)/2;
+			if(STR.substr(SA[me])<p)si=me;
+			else ue=me;
+		}
+		return ue;
+	}
+	
+	pa range(string p){// p‚ğŠÜ‚Ş”¼‰ó‹æŠÔ [l,r)  l==r ‚È‚ç‘¶İ‚È‚µ
+				return {lower_bound(p),lower_bound(p+'{')};
+	}
 };
-SAIS SA;
