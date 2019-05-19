@@ -1,70 +1,69 @@
-#include<iostream>
-#include<cstdio>
-#include<vector>
-#include<queue>
-#include<map>
-#include<string>
-#include<algorithm>
-#include<functional>
-#define ll long long
-#define inf  999999999
-#define pa pair<int,int>
-using namespace std;
-vector<int> gr[11000];
-vector<int> igr[11000];
-vector<int> ban;
+// shoki(N)で初期化
 
-int v,e;
-int visit[11000]={0},gro[11000]={0};
+// add_edge(x,y) でx->yに枝追加
 
-void dfs(int i){
-	if(visit[i]==0){
-		visit[i]=1;
-		for(int k=0;k<gr[i].size();k++) dfs(gr[i][k]);
-		ban.push_back(i);
+// shori()で実行
+
+// same(x,y)で二つが同じ強連結成分に入ってるか
+// id(x)で頂点xの連結成分番号
+
+
+struct kyouren{
+private:
+	public:
+int V;
+	vector<vector<int>> gr,igr;
+	vector<int> visit,gro,ban;
+	void shoki(int N){
+		V=N;
+			gr.resize(N,{});
+			igr.resize(N,{});
+		visit.resize(N,0);
+		gro.resize(N,0);
 	}
-}
-
-void idfs(int i,int h){
-	if(visit[i]==0){
-		visit[i]=1;
-		gro[i]=h;
-		for(int k=0;k<igr[i].size();k++) idfs(igr[i][k],h);
+	
+	void add_edge(int x,int y){
+		// 0<= x,y <N
+		gr[x].pb(y);
+		igr[y].pb(x);
 	}
-}
-
-void kyouren(){
-	for(int i=0;i<v;i++){
-		dfs(i);
-	}
-	for(int i=0;i<v;i++) visit[i]=0;
-	for(int i=v-1;i>=0;i--){
-		idfs(ban[i],ban[i]);
+	
+	
+	
+	void dfs(int i){
+		if(visit[i]==0){
+			visit[i]=1;
+			for(int k=0;k<(int)gr[i].size();k++) dfs(gr[i][k]);
+			ban.push_back(i);
+		}
 	}
 
+	void idfs(int i,int h){
+		if(visit[i]==0){
+			visit[i]=1;
+			gro[i]=h;
+			for(int k=0;k<(int)igr[i].size();k++) idfs(igr[i][k],h);
+		}
+	}
 
-}
+	void shori(){
+		for(int i=0;i<V;i++){
+			dfs(i);
+		}
+		for(int i=0;i<V;i++) visit[i]=0;
+		for(int i=V-1;i>=0;i--){
+			idfs(ban[i],ban[i]);
+		}
+	}
+		bool same(int x,int y){
+			return gro[x]==gro[y];
+		}
+		
+		int id(int x){
+			return gro[x];
+		}
 
+	
+	
 
-
-
-int main(){
-int s,t,q,aa,aaa;
-cin>>v>>e;
-for(int i=0;i<e;i++){
-cin>>s>>t;
-gr[s].push_back(t);
-igr[t].push_back(s);
-}
-kyouren();
-//q個のクエリ　gro[i]=gro[j]なら同じ成分。
-cin>>q;
-for(int i=0;i<q;i++){
-cin>>aa>>aaa;
-if(gro[aa]==gro[aaa]) cout<<"1"<<endl;
-else cout<<"0"<<endl;
-}
-
-
-return 0;
-}
+};

@@ -1,6 +1,6 @@
 
 struct edge{
-	int to,cap,num;
+	int to,cap,num,moto;
 };
 vector<edge> ZANYO[100020];
 int label[100020];
@@ -8,8 +8,8 @@ queue<pa> qu_bfs;
 int dokomade[100020];
 void add_edge(int s_point,int t_point, int capa){// (s!=t)  s-->t
 	
-		ZANYO[s_point].pb((edge){t_point,capa,(int)ZANYO[t_point].size()});
-		ZANYO[t_point].pb((edge){s_point,0,(int)ZANYO[s_point].size()-1});
+		ZANYO[s_point].pb((edge){t_point,capa,(int)ZANYO[t_point].size(),0});
+		ZANYO[t_point].pb((edge){s_point,0,(int)ZANYO[s_point].size()-1,1});
 }
 
 void bfs_dinic(int s_point,int N){
@@ -75,3 +75,12 @@ int max_flow_dinic(int s_point,int t_point,int N){// NÇÕí∏ì_êî:ë∂ç›Ç∑ÇÈí∏ì_î‘çÜÇ
 	}
 	return ans_flow;
 }
+
+
+/////////
+void fukugen(int N){
+	for(int i=0;i<N;i++)for(auto v:ZANYO[i])if(v.moto==1){
+		cout<<v.to<<" "<<i<<" "<<v.cap<<endl;
+	}
+}
+/////////
