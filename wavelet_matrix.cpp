@@ -299,6 +299,7 @@ struct wavlet_matrix{
 	
 	int range_bound_max(int l,int r,int val){
 		//‹æŠÔ[l,r)‚É‘¶İ‚·‚é’l‚ªvalˆÈ‰º‚Ì’†‚ÅÅ‘å‚Ì’l
+		//ŠY“–‚µ‚È‚¢ê‡‚Í -1
 		
 		if(l>=r) return -1;
 		
@@ -368,7 +369,7 @@ struct wavlet_matrix{
 	
 	int range_bound_min(int l,int r,int val){
 		//‹æŠÔ[l,r)‚É‘¶İ‚·‚é’l‚ªvalˆÈã‚Ì’†‚ÅÅ¬‚Ì’l
-		
+		//ŠY“–‚µ‚È‚¢ê‡‚Í -1
 		if(l>=r) return -1;
 		
 		int dep=-1;
