@@ -1,0 +1,8 @@
+*.exe
+sa_new.cpp
+sa_nlog^2_lcp.cpp
+test.cpp
+sample.txt
+input.txt
+*.swp
+netukigi.cpp

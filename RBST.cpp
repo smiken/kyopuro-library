@@ -6,7 +6,7 @@ typedef	struct node{
 		int sub_size;
 		int val; // ‚±‚ê‚ª”—ñ‚Ì’l
 		int mi;
-	
+		int su;
 	}node;
 
 
@@ -32,6 +32,8 @@ typedef struct RBST{
 		if(v->rc!=NULL)v->sub_size+=v->rc->sub_size;
 		
 		// ‚±‚±‚ÉŽq¨e‚Ì‘€ì‚ð‘‚­
+		v->su=v->val;
+		
 		
 		v->mi=v->val;
 		v->mi=min(v->mi,mi(v->lc));
