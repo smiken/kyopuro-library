@@ -38,7 +38,7 @@ void bfs_dinic(int s_point,int N){
 int dfs_dinic(int s_point,int t_point, int ima_flow){
 	if(s_point==t_point) return ima_flow;
 	while(1){
-		if(dokomade[s_point]>=ZANYO[s_point].size()) break;
+		if(dokomade[s_point]>=(int)ZANYO[s_point].size()) break;
 		int edanum=dokomade[s_point];
 		if(ZANYO[s_point][edanum].cap<0){
 			cout<<"minus"<<endl;
@@ -75,12 +75,3 @@ int max_flow_dinic(int s_point,int t_point,int N){// N‚Í’¸“_”:‘¶Ý‚·‚é’¸“_”Ô†‚
 	}
 	return ans_flow;
 }
-
-
-/////////
-void fukugen(int N){
-	for(int i=0;i<N;i++)for(auto v:ZANYO[i])if(v.moto==1){
-		cout<<v.to<<" "<<i<<" "<<v.cap<<endl;
-	}
-}
-/////////

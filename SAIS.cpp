@@ -9,7 +9,7 @@
 // AOJ —§–½‡h2017 password
 // uva I Love Strings!!
 
-struct SAIS{
+struct SAIS{ // ‹ó•¶Žš—ñ‚Í‚¾‚ßII
 	private:
 	public:
 /*
@@ -252,7 +252,7 @@ SA  LCP
 		return;
 	}
 	
-	int lower_bound(string p){// •¶Žš—ñ‚Ìê‡‚Ì‚Ý@p‚Í”ñ‹ó
+	int lower_bound(string p){// •¶Žš—ñ‚Ìê‡‚Ì‚Ý p‚Í”ñ‹ó
 		int m=p.length();
 		int ue=len,si=0,me;
 		while(ue-si>1){

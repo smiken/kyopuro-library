@@ -50,8 +50,8 @@ ll garner(vector<pair<ll,ll>> vec,ll MOD){
 		// (teisuu[i] + val*ruiseki[i]) % vec[i].first = vec[i].second
 		
 		val= (ll)vec[i].second-teisuu[i];
-		while(val<0) val+=(ll)vec[i].first;
 		val%=(ll)vec[i].first;
+		while(val<0) val+=(ll)vec[i].first;
 		val*= modinv(ruiseki[i],(ll)vec[i].first);
 		val%=(ll)vec[i].first;
 	

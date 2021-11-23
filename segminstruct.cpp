@@ -28,7 +28,7 @@ struct Segmin{
 	// 1<<17 = 131072
 	// 1<<18 = 262144
 	
-	int cor=(1<<17);
+	int cor=(1<<18);
 	
 	vector<pa> vec;
 	

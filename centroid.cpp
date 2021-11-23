@@ -1,6 +1,6 @@
      
     vector<int> Tree[100020];
-    // tree
+    // Q‚Â‚«–Øtree
      
      
     vector<pa3> centroid[100020];
@@ -47,7 +47,7 @@
     		}
     		if(bo){
     			
-    				if(parent>=0)centroid[parent].pb((pa3){r,tree_size,dir});
+    			if(parent>=0)centroid[parent].pb((pa3){r,tree_size,dir});
     			else root_cen=r;
     			locked[r]=1;
     			if(r!=root){

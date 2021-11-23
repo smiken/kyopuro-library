@@ -52,6 +52,55 @@ int bi_match(){
   return res;
 }
 
+
+struct bi_match{
+	private:
+	public:
+	
+	// 頂点は0以上n未満
+	// 各頂点がどっち側かは意識しなくていい
+	// 多重辺はダメ
+	
+	vector<vector<int>> Graph;
+	
+	bi_match(int V){
+		this->V=V;
+		Graph.resize(V);
+		match.resize(V,-1);
+		used.resize(V,-1);
+	}
+	
+	void add_edge(int u,int v){
+		Graph[u].pb(v);
+		Graph[v].pb(u);		
+	}
+	
+	bool dfs_bi(int v,int num){
+		used[v] = num;
+  		for(int u:Graph[v]){
+    		int w=match[u];
+    		if(w<0 || used[w]<num && dfs_bi(w,num)){
+      			match[v]=u;
+      			match[u]=v;
+      			return true;
+    		}
+  		}
+  		return false;
+	}
+	
+	int solve(){
+ 		int res=0;
+  		for(int v=0;v<V;v++){
+    		if(match[v]<0){
+      			if(ddffss(v)){
+       				 res++;
+      			}
+    		}
+  		}
+ 		return res;
+	}
+};
+
 /*　　　---memo---
 add_edge(始点,終点)で枝追加
 bi_match()でmatchingをintで返す

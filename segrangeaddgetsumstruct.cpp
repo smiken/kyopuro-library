@@ -53,6 +53,8 @@ struct seg_addsum_getsum{
 	void rangeadd(int a,int b,int w, int k=1,int l=0,int r=-3){
 		//[a,b)‚É w‰ÁZ
 		if(r<0) r=cor;
+	
+	
 		chien(k,l,r);
 		if(a<=l && r<=b){
 			lazy[k]+=w*(r-l);
